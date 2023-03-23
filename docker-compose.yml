@@ -1,0 +1,12 @@
+version: "3.8"
+services:
+  node1:
+    image: "hex-node"
+    environment:
+      - NODE_NAME=node1
+  node2:
+    image: "hex-node"
+    environment:
+      - NODE_NAME=node2
+    depends_on:
+      - node1
