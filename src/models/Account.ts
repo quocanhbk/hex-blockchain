@@ -1,7 +1,6 @@
 import crypto from "crypto"
 import elliptic from "elliptic"
 import ec from "../utils/elliptic"
-import Transaction from "./Transaction"
 
 class Account {
   private privateKey: string
@@ -23,15 +22,6 @@ class Account {
     const signature = key.sign(Buffer.from(messageHash))
 
     return signature
-  }
-
-  signTransaction(transaction: Transaction): Transaction {
-    const signature = this.sign(transaction.hash())
-    transaction.v = signature.recoveryParam!
-    transaction.r = signature.r.toString("hex")
-    transaction.s = signature.s.toString("hex")
-
-    return transaction
   }
 
   verify(data: string, signature: elliptic.ec.Signature): boolean {
