@@ -36,6 +36,7 @@
     "typescript": "^5.0.2"
   },
   "scripts": {
+    "prepare": "husky install",
     "build": "tsc",
     "start": "ts-node src/index.ts",
     "test": "jest"
