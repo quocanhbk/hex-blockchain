@@ -47,9 +47,8 @@
     }
   },
   "lint-staged": {
-    "*.ts": [
-      "npm test",
-      "git add"
+    "**/*.ts": [
+      "npm test"
     ]
   }
 }
