@@ -27,7 +27,7 @@ class Account {
 
   signTransaction(transaction: Transaction): Transaction {
     const signature = this.sign(transaction.hash())
-    transaction.v = signature.recoveryParam! + 27
+    transaction.v = signature.recoveryParam!
     transaction.r = signature.r.toString("hex")
     transaction.s = signature.s.toString("hex")
 
