@@ -6,11 +6,13 @@
   "dependencies": {
     "@libp2p/mplex": "^7.1.1",
     "@types/elliptic": "^6.4.14",
+    "@types/level": "^6.0.1",
     "@types/node": "^18.15.3",
     "bignumber.js": "^9.1.1",
     "elliptic": "^6.5.4",
     "ethers": "^6.1.0",
     "it-pipe": "^2.0.5",
+    "level": "^8.0.0",
     "libp2p": "^0.34.0",
     "libp2p-mdns": "^0.18.0",
     "libp2p-mplex": "^0.10.7",

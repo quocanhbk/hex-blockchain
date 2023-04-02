@@ -1,12 +1,32 @@
 import { keccak256 } from "ethers"
 import Block from "./Block"
 import Transaction from "./Transaction"
+import { addBlockToDB, getBlockFromDB } from "../storage";
 
 class Blockchain {
-  public chain: Block[]
+  public chain: Block[];
 
   constructor() {
-    this.chain = [this.createGenesisBlock()]
+    this.chain = [];
+    this.init();
+  }
+
+  private async init(): Promise<void> {
+    const genesisBlock = await getBlockFromDB(0);
+    if (!genesisBlock) {
+      const newGenesisBlock = this.createGenesisBlock();
+      await addBlockToDB(newGenesisBlock);
+      this.chain.push(newGenesisBlock);
+    } else {
+      let index = 0;
+      let block: Block | null = genesisBlock;
+
+      while (block) {
+        this.chain.push(block);
+        index++;
+        block = (await getBlockFromDB(index));
+      }
+    }
   }
 
   createGenesisBlock(): Block {
@@ -44,13 +64,15 @@ class Blockchain {
     return true
   }
 
-  addNewBlock(block: Block): boolean {
+  async addNewBlock(block: Block): Promise<boolean> {
     if (this.validateNewBlock(block)) {
       this.chain.push(block)
+      await addBlockToDB(block)
       return true
     }
     return false
   }
+
 }
 
 export default Blockchain
