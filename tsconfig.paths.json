@@ -1,0 +1,10 @@
+{
+  "extends": "./tsconfig.base.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@pos-blockchain/common": ["packages/common/src"],
+      "@pos-blockchain/wallet": ["packages/wallet/src"]
+    }
+  }
+}
