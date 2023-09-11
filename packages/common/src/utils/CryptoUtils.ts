@@ -77,4 +77,8 @@ export class CryptoUtils {
 
     return { publicKey, address }
   }
+
+  public static isValidAddress(address: string): boolean {
+    return address.length === 40 && address !== this.ADDRESS_ZERO
+  }
 }

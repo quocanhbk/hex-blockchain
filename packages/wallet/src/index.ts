@@ -143,10 +143,24 @@ const main = async () => {
 
         try {
           const transaction = await walletManagement.initTransaction(receiver, amount)
+          // prompt to sign transaction
+          const { signTransaction } = await inquirer.prompt([
+            {
+              type: "confirm",
+              name: "signTransaction",
+              message: "Sign transaction?",
+            },
+          ])
+
+          if (!signTransaction) {
+            logger.log("Sender denied to sign transaction")
+            confirmContinue()
+            break
+          }
+
           const signedTransaction = await walletManagement.signTransaction(transaction)
-          console.log(signedTransaction)
-          await client.request("transaction", signedTransaction)
-          logger.log(`Transaction sent`)
+          client.request("transaction", signedTransaction)
+          logger.log("Transaction sent successfully")
         } catch (error: any) {
           logger.error(error.message)
         }

@@ -1,4 +1,4 @@
-import { Account, Transaction, Wallet } from "@pos-blockchain/common"
+import { Account, CryptoUtils, Transaction, Wallet } from "@pos-blockchain/common"
 import { BigNumber } from "bignumber.js"
 import { Level } from "level"
 
@@ -78,6 +78,11 @@ export class WalletManagement {
     const currentWallet = await this.getWallet(currentWalletAddress)
     if (!currentWallet) {
       throw new Error("Wallet not found")
+    }
+
+    // validate if to address is valid
+    if (!CryptoUtils.isValidAddress(to)) {
+      throw new Error("Invalid address")
     }
 
     // check if current wallet has enough balance
